@@ -335,7 +335,7 @@ function update_item_configuration()
         end
         stack_size_slider.editbox:SetNumber(stack_size_slider:GetValue())
         stack_count_slider.editbox:SetNumber(stack_count_slider:GetValue())
-        do
+		do
             local duration_multiplier = get_duration_multiplier(UIDropDownMenu_GetSelectedValue(duration_dropdown))
             local stack_size, stack_count = selected_item.max_charges and 1 or stack_size_slider:GetValue(), stack_count_slider:GetValue()
             local amount = ceil(selected_item.unit_vendor_price * stack_size * 0.15 / 4) * duration_multiplier * stack_count
