@@ -20,7 +20,7 @@ local settings_schema = {'tuple', '#', {duration='number'}, {start_price='number
 
 local scan_id, inventory_records, bid_records, buyout_records = 0, {}, {}, {}
 
-M.DURATION_2, M.DURATION_8, M.DURATION_24 = 120, 480, 1440
+M.DURATION_2, M.DURATION_8, M.DURATION_24 = 360, 1440, 4320
 
 refresh = true
 
@@ -364,10 +364,13 @@ function update_item_configuration()
 
         do
             local deposit_factor = 0.025
-            local duration_factor = UIDropDownMenu_GetSelectedValue(duration_dropdown) / 120
+            local duration_factor = UIDropDownMenu_GetSelectedValue(duration_dropdown) / 720
+	-- 72h : 4320 / 720 = 6 ✓
+	-- 24h : 1440 / 720 = 2 ✓  
+	-- 6h  :  360 / 720 = 0.5 ✓
             local stack_size, stack_count = selected_item.max_charges and 1 or stack_size_slider:GetValue(), stack_count_slider:GetValue()
             local max_stack = selected_item.max_stack
-            local amount = floor(selected_item.unit_vendor_price * stack_size * duration_factor * (1 + (max_stack - stack_size) * 0.05) * deposit_factor) * stack_count
+            local amount = ceil(selected_item.unit_vendor_price * stack_size * deposit_factor * duration_factor) * stack_count
             deposit:SetText('Deposit: ' .. money.to_string(amount, nil, nil, aux.color.text.enabled))
         end
 
