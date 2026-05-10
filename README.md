@@ -1,23 +1,18 @@
-# aux Turtle
+# aux - WoW 1.12 AddOn
+
+The most advanced auction house addOn for the 1.12 client with some features more advanced than anything even on retail.
 
 * Now comes with a new blizz-like theme by default thanks to Oldmana. Use **/aux theme** to switch between them.
 * Shares some price data through the LFT chat when searching the AH, use **/aux sharing** to disable sending and receiving data.
-* Accurate auction durations for Turtle WoW.
-* Autocompletion for custom Turtle WoW items.
 * Display Unit Vendor Price
-* The displayed deposit fee has been reduced by 40%, this isn't accurate but should be closer to the real cost. I'd like to have it accurate eventually, if you know what turtle's calculations are feel free to reach out to me or even send a pr.
 
-"Why is aux so slow on turtle wow?"    
-The rate at which the client receives auction data is intentionally limited by the server, there is nothing addons can do here.
 
 New Blizz-like theme:
 <img src="https://i.imgur.com/8HTsH2D.png" alt="Main Screen">
 <img src="https://i.imgur.com/iwrPHIE.png" alt="Search Screen">
 <img src="https://i.imgur.com/mBVV7cf.png" alt="Post Screen">
 
-# aux - WoW 1.12 AddOn
 
-The most advanced auction house addOn for the 1.12 client with some features more advanced than anything even on retail.
 
 ## Core Features
 
