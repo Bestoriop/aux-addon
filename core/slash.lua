@@ -36,8 +36,8 @@ function SlashCmdList.AUX(command)
         aux.account_data.post_bid = not aux.account_data.post_bid
 	    aux.print('post bid ' .. status(aux.account_data.post_bid))
         warn_reload()
-    elseif arguments[1] == 'post' and arguments[2] == 'duration' and  T.map('6', post.DURATION_2, '24', post.DURATION_8, '72', post.DURATION_24)[arguments[3]] then
-        aux.account_data.post_duration = T.map('6', post.DURATION_2, '24', post.DURATION_8, '72', post.DURATION_24)[arguments[3]]
+    elseif arguments[1] == 'post' and arguments[2] == 'duration' and  T.map('2', post.DURATION_2, '8', post.DURATION_8, '24', post.DURATION_24)[arguments[3]] then
+        aux.account_data.post_duration = T.map('2', post.DURATION_2, '8', post.DURATION_8, '24', post.DURATION_24)[arguments[3]]
         aux.print('post duration ' .. aux.color.blue(aux.account_data.post_duration / 60 * 3 .. 'h'))
     elseif arguments[1] == 'crafting' and arguments[2] == 'cost' then
 		aux.account_data.crafting_cost = not aux.account_data.crafting_cost
