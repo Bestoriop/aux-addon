@@ -362,14 +362,10 @@ function update_item_configuration()
         stack_size_slider.editbox:SetNumber(stack_size_slider:GetValue())
         stack_count_slider.editbox:SetNumber(stack_count_slider:GetValue())
 
-        do
-            local deposit_factor = 0.025
+		do
+            local deposit_factor = 0.05
             local duration_factor = UIDropDownMenu_GetSelectedValue(duration_dropdown) / 720
-	-- 72h : 4320 / 720 = 6 ✓
-	-- 24h : 1440 / 720 = 2 ✓  
-	-- 6h  :  360 / 720 = 0.5 ✓
             local stack_size, stack_count = selected_item.max_charges and 1 or stack_size_slider:GetValue(), stack_count_slider:GetValue()
-            local max_stack = selected_item.max_stack
             local amount = ceil(selected_item.unit_vendor_price * stack_size * deposit_factor * duration_factor) * stack_count
             deposit:SetText('Deposit: ' .. money.to_string(amount, nil, nil, aux.color.text.enabled))
         end
