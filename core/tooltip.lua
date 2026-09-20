@@ -76,14 +76,32 @@ function M.extend_tooltip(tooltip, link, quantity)
         end
     end
     if settings.merchant_sell then
-        local price = info.merchant_info(item_id)
-		if price == nil and ShaguTweaks and ShaguTweaks.SellValueDB[item_id] ~= nil then
-			local charges = 1
-			if info.max_item_charges(item_id) ~= nil then 
-				charges=info.max_item_charges(item_id) 
-			end
-			price = ShaguTweaks.SellValueDB[item_id] / charges
-		end
+        local price
+        local charges = info.max_item_charges(item_id) or 1
+
+        -- 1) Prix natif du client (même source que le module sellvalue de pfUI)
+        if C_Item and C_Item.GetItemSellPriceByID then
+            local native_price = C_Item.GetItemSellPriceByID(item_id)
+            if native_price and native_price > 0 then
+                price = native_price / charges
+            end
+        end
+
+        -- 2) Base de données d'Aux (prix vus chez les marchands)
+        if price == nil then
+            price = info.merchant_info(item_id)
+        end
+
+        -- 3) Secours ShaguTweaks
+        if price == nil and ShaguTweaks and ShaguTweaks.SellValueDB and ShaguTweaks.SellValueDB[item_id] ~= nil then
+            price = ShaguTweaks.SellValueDB[item_id] / charges
+        end
+
+        -- 4) Le client répond 0 et aucune autre source : objet non vendable
+        if price == nil and C_Item and C_Item.GetItemSellPriceByID and C_Item.GetItemSellPriceByID(item_id) == 0 then
+            price = 0
+        end
+
         if price ~= 0 then
             tooltip:AddLine('Vendor: ' .. (price and money.to_string2(price * quantity) or UNKNOWN), aux.color.tooltip.merchant())
         end
